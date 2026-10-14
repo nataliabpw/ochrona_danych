@@ -12,8 +12,8 @@ def readability(text):
 with open("cezar.bin", "rb") as f:
     cryptogram = f.read()
 
-print(list(cryptogram))
-print(type(cryptogram))
+# print(list(cryptogram))
+# print(type(cryptogram))
 
 text_ra = {}
 
@@ -21,17 +21,14 @@ for key in range(256):
     candidate = decrypt(cryptogram, key)
     text_ra[key]=readability(candidate)
 
-posortowane = dict(sorted(text_ra.items(), key=lambda item: item[1], reverse=True))
+posortowane = sorted(text_ra.items(), key=lambda item: (-item[1], item[0]))
 
 
-x = 1
-last_ra=1
-for (k, ra) in posortowane.items():
-    if ra==1:
-        print(f"Klucz {k}: {repr(decrypt(cryptogram, k))}")
-    print(f"Klucz {k}: {ra}")
-    if x>=5:
-        break
-    if last_ra!=ra:
-        x+=1
-    last_ra = ra
+
+for k, ra in posortowane[:5]:
+    candidate = decrypt(cryptogram, k)
+    print(f"Klucz: {k}, zgodność: {ra} {repr(candidate)[:30]}")
+
+
+with open("cezar.txt", "w") as f:
+    f.write(decrypt(cryptogram, 233))

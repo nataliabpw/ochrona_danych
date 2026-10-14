@@ -2,7 +2,7 @@ with open("tekst_pl.txt", "rb") as f:
     cryptogram = f.read()
 
 def encrypt(bytes, key):
-    result = bytearray(len(cryptogram))
+    result = bytearray(len(bytes))
     for i, byte in enumerate(bytes):
         key_char = key[i % len(key)]
         code = (byte + ord(key_char)) % 256
@@ -10,39 +10,48 @@ def encrypt(bytes, key):
     return result
 
 def decrypt(bytes, key):
-    result = bytearray(len(cryptogram))
+    result = bytearray(len(bytes))
     for i, byte in enumerate(bytes):
         key_char = key[i % len(key)]
         code = (byte - ord(key_char)) % 256
         result[i] = code
     return result
 
-# key = "ZAMEK"
+key = "ZAMEK"
 
-# encrypted = encrypt(cryptogram, key)
-# decrypted = decrypt(encrypted, key)
+encrypted = encrypt(cryptogram, key)
+
+# with open("vigenere.bin", "wb") as f:
+#     f.write(encrypted)
+
+decrypted = decrypt(encrypted, key)
 
 # for i in range(len(cryptogram)):
 #     if (cryptogram[i]!=decrypted[i]):
 #         print("Błąd!")
 
-# with open("vigenere.bin", "wb") as f:
-#     f.write(encrypted)
+print(decrypted == cryptogram)
 
-ciag = "BRAMABRAMABRAMA"
+empty = b""
+print("Empty:")
+print(empty == decrypt(encrypt(empty, key), key))
 
-bytes = bytearray(len(ciag))
+print("0 i 255:")
+bytes = bytes([0, 255])
+print(bytes == decrypt(encrypt(bytes, key), key))
 
-for i in range(len(ciag)):
-    bytes[i] = ord(ciag[i])
 
-def show_hex(bytes):
-    print(bytes.hex())
+ciag = b"BRAMABRAMABRAMA"
 
-print("Key: SZYFR:")
-print(encrypt(bytes, "SZYFR"))
-# show_hex(encrypt(bytes, "SZYFR"))
+encrypted_szyfr = encrypt(ciag, "SZYFR")
+encrypted_kod = encrypt(ciag, "KOD")
 
-print("Key: KOD:")
-print(encrypt(bytes, "KOD"))
-# show_hex(encrypt(bytes, "KOD"))
+def show_hex(data):
+    for i in range(0, len(data), 5):
+        print(data[i:i+5].hex())
+
+print("Klucz SZYFR:")
+show_hex(encrypted_szyfr)
+
+print("Klucz KOD:")
+show_hex(encrypted_kod)
