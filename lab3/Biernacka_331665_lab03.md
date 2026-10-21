@@ -62,9 +62,10 @@ Znak: o, H = 7.9493
 Znak: 2, H = 7.9502
 
 Najlepszy znak: m - najniższa entropia
-Pierwszy wiersz tekstu: Odszyfrowany tekst:
+
+Pierwszy odszyfrowanego tekstu:
 Record 000. The archive contains laboratory notes about symmetric encryption and careful handling of binary files.
 
 Liczba możliwych kluczy wynosi 36, ponieważ klucz skłąda się z 16 powtórzeń wybranego znaku spośród 26 małych liter alfabetu i 10 cyfr
 
-Ranking entropii może zawieźć dla danych skompresowanych, ponieważ
+Ranking entropii może zawieźć dla danych skompresowanych, ponieważ mają one zwykle wysoką entropię i przypominają dane losowe, zatem poprawny klucz może nie dawać najniższej entropii
